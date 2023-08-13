@@ -13,7 +13,7 @@ In short, images (for instance, [digital elevation models](https://en.wikipedia.
 
 | Image | Created tile|
 | --- | --- |
-| <img src="./docs/imgs/sample.png"> | <img src="./docs/imgs/sample_as_tile.png"> |
+| <img src="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/sample.png"> | <img src="https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/sample_as_tile.png"> |
 
 ## Data
 
@@ -26,11 +26,11 @@ In principle, all 2D grayscale image data can be used to create a tile. However,
 
 To use the boardgame tile maker, open it from the plugins menu (`Plugins > napari-boardgame-maker: Boardgame Tile Maker`) or from the tools menu (`Tools > Boardgame tile maker (npbgm)`). There are a few steps and parameters to set before the tile can be created.
 
-[](./docs/imgs/GUI_screenshot.jpg)
+[](https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/GUI_screenshot.jpg)
 
 Clicking on `Make hexagon` and `Make number field` will create a hexagonal shape in the viewer (which will be the outline of the tile) and a circular field (which can later be used to put some markers, figures, chips, etc. On the center of the board).
 
-![](docs/imgs/sample_with_shapes.png)
+![](https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/sample_with_shapes.png)
 
 The next step is to set the parameters for the tile. The following parameters can be set:
 
@@ -38,7 +38,7 @@ The next step is to set the parameters for the tile. The following parameters ca
 
 The following sketch shows the different radii and sizes that can be set:
 
-![](./docs/imgs/stride_and_town.png)
+![](https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/stride_and_town.png)
 
 - `hexagon radius`: The radius of the hexagon (in pixels). Upon export, this will be rescaled to a desired physical size in mm.
 - `number field radius`: The radius of the number field (in pixels). Can also be set in mm units. The pixels are changed accordingly if the size of the whole hexagon is changed.
@@ -49,7 +49,7 @@ The following sketch shows the different radii and sizes that can be set:
 
 The following parameters can be set to create the topography of the tile:
 
-![](./docs/imgs/slope_and_heights.png)
+![](https://github.com/jo-mueller/napari-boardgame-maker/raw/main/docs/imgs/slope_and_heights.png)
 
 - `slope`: Adds a smooth transition of a given width between the edge of the cropped topography and the level of the base platte. Setting this to zero will result in a sharp edge.
 - `z-multiplier`: The height of the topography is multiplied by this factor. This can be used to scale the topography to the desired height.
