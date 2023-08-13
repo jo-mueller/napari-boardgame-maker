@@ -7,14 +7,42 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="2">
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>Image layer</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Pixels</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>mm</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Hexagon radius</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
     <widget class="QSpinBox" name="spinBox_hexagon_radius">
      <property name="minimum">
       <number>50</number>
@@ -27,7 +55,117 @@
      </property>
     </widget>
    </item>
+   <item row="3" column="3">
+    <widget class="QDoubleSpinBox" name="doubleSpinBox_final_size_mm">
+     <property name="maximum">
+      <double>400.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>90.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="QLabel" name="label_number_field_radius">
+     <property name="text">
+      <string>Number field radius</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="2">
+    <widget class="QSpinBox" name="spinBox_number_field_radius">
+     <property name="maximum">
+      <number>1000</number>
+     </property>
+     <property name="value">
+      <number>60</number>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="3">
+    <widget class="QDoubleSpinBox" name="spinBox_number_field_radius_mm">
+     <property name="maximum">
+      <double>400.000000000000000</double>
+     </property>
+     <property name="value">
+      <double>12.500000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Stride [px]</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="2">
+    <widget class="QSpinBox" name="spinBox_stride">
+     <property name="value">
+      <number>20</number>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="3">
+    <widget class="QDoubleSpinBox" name="spinBox_stride_mm">
+     <property name="minimum">
+      <double>0.010000000000000</double>
+     </property>
+     <property name="value">
+      <double>5.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <widget class="QLabel" name="label_town_radius">
+     <property name="text">
+      <string>Town radius [px]</string>
+     </property>
+    </widget>
+   </item>
    <item row="6" column="2">
+    <widget class="QSpinBox" name="spinBox_townradius">
+     <property name="value">
+      <number>35</number>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="3">
+    <widget class="QDoubleSpinBox" name="spinBox_townradius_mm">
+     <property name="value">
+      <double>10.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="2">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Slope width [px]</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="2">
+    <widget class="QSpinBox" name="spinBox_slope_width">
+     <property name="value">
+      <number>25</number>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="3">
+    <widget class="QDoubleSpinBox" name="spinBox_slope_width_mm">
+     <property name="value">
+      <double>5.000000000000000</double>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Z-multiplier</string>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="2">
     <widget class="QDoubleSpinBox" name="doubleSpinBox_z_multiplier">
      <property name="decimals">
       <number>3</number>
@@ -43,86 +181,39 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="3">
-    <widget class="QDoubleSpinBox" name="spinBox_stride_mm">
-     <property name="minimum">
-      <double>0.010000000000000</double>
-     </property>
-     <property name="value">
-      <double>5.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="2">
-    <widget class="QSpinBox" name="spinBox_stride">
-     <property name="value">
-      <number>20</number>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="2">
-    <widget class="QSpinBox" name="spinBox_number_field_radius">
-     <property name="maximum">
-      <number>1000</number>
-     </property>
-     <property name="value">
-      <number>60</number>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3">
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_final_size_mm">
-     <property name="maximum">
-      <double>400.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>90.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="2">
-    <widget class="QSpinBox" name="spinBox_townradius">
-     <property name="value">
-      <number>35</number>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Radius</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QPushButton" name="pushButton_create_number_field">
-     <property name="text">
-      <string>Make Number field</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLabel" name="label_number_field_radius">
-     <property name="text">
-      <string>Radius</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="2">
-    <widget class="QSpinBox" name="spinBox_slope_width">
-     <property name="value">
-      <number>25</number>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="0" colspan="2">
+   <item row="9" column="0" colspan="2">
     <widget class="QLabel" name="label_6">
      <property name="text">
       <string>Plate thickness [mm]</string>
      </property>
     </widget>
    </item>
+   <item row="9" column="2">
+    <widget class="QSpinBox" name="spinBox_height_offset">
+     <property name="value">
+      <number>2</number>
+     </property>
+    </widget>
+   </item>
    <item row="10" column="0" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QPushButton" name="pushButton_run">
+       <property name="text">
+        <string>Produce tile</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_export">
+       <property name="text">
+        <string>Export</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="11" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -135,99 +226,23 @@
      </property>
     </spacer>
    </item>
-   <item row="5" column="3">
-    <widget class="QDoubleSpinBox" name="spinBox_slope_width_mm">
-     <property name="value">
-      <double>5.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0" colspan="2">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Slope width [px]</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="3">
-    <widget class="QDoubleSpinBox" name="spinBox_townradius_mm">
-     <property name="value">
-      <double>10.000000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="3">
-    <widget class="QLabel" name="label_7">
-     <property name="text">
-      <string>mm</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="3">
-    <widget class="QDoubleSpinBox" name="spinBox_number_field_radius_mm">
-     <property name="maximum">
-      <double>400.000000000000000</double>
-     </property>
-     <property name="value">
-      <double>12.500000000000000</double>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0" colspan="2">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Stride [px]</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="2">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Pixels</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QPushButton" name="pushButton_make_outline">
-     <property name="text">
-      <string>Make Hexagon</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0" colspan="2">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>Z-multiplier</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0" colspan="2">
-    <widget class="QLabel" name="label_town_radius">
-     <property name="text">
-      <string>Town radius [px]</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="2">
-    <widget class="QSpinBox" name="spinBox_height_offset">
-     <property name="value">
-      <number>2</number>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0" colspan="2">
-    <widget class="QPushButton" name="pushButton_run">
-     <property name="text">
-      <string>Produce tile</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="2" colspan="2">
-    <widget class="QPushButton" name="pushButton_export">
-     <property name="text">
-      <string>Export to stl</string>
-     </property>
-    </widget>
+   <item row="1" column="0" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_make_outline">
+       <property name="text">
+        <string>Make Hexagon</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_create_number_field">
+       <property name="text">
+        <string>Make Number field</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>

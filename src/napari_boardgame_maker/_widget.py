@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING
 
 from qtpy.QtWidgets import QWidget, QFileDialog
 from qtpy import uic
+from qtpy.QtCore import QEvent, QObject
 
 from matplotlib.patches import CirclePolygon, Circle
 from skimage.draw import polygon2mask
@@ -17,6 +18,8 @@ from scipy.ndimage import distance_transform_edt
 from scipy import spatial, optimize
 import vedo
 import copy
+
+from magicgui.widgets import create_widget
 
 from pathlib import Path
 import os
@@ -34,9 +37,16 @@ class BoardgameMakerWidget(QWidget):
         self.viewer = napari_viewer
         uic.loadUi(Path(os.path.dirname(__file__)) / "tile_maker.ui", self)
 
+        # add widget select at top of gridlayout
+        self.image_layer_select = create_widget(annotation=napari.layers.Image, label="Image_layer")
+        self.layout().addWidget(self.image_layer_select.native, 0, 1, 1, 3)
+        
         self.pushButton_make_outline.clicked.connect(self._create_outline)
         self.pushButton_run.clicked.connect(self._create_tile)
         self.pushButton_create_number_field.clicked.connect(self._create_number_field)
+
+        self.spinBox_hexagon_radius.valueChanged.connect(self._create_outline)
+        self.spinBox_number_field_radius.valueChanged.connect(self._create_number_field)
 
         # Connect pixel/mm converters
         self.spinBox_number_field_radius_mm.valueChanged.connect(self._update_pixel_values)
@@ -56,34 +66,35 @@ class BoardgameMakerWidget(QWidget):
         # Connect save button
         self.pushButton_export.clicked.connect(self._export)
 
-        self.center = None
+        self.center = [0, 0]
         self.outline_layer = None
         self.number_field_layer = None
         self.tile_labels_layer = None
         self.surface_final_layer = None
-        self.selected_image_layer = None
 
         self._update_pixel_values()
+        self.installEventFilter(self)
+    
+    def eventFilter(self, obj: QObject, event: QEvent):
+        if event.type() == QEvent.ParentChange:
+            self.image_layer_select.parent_changed.emit(self.parent())
+
+        return super().eventFilter(obj, event)
 
     def _create_outline(self):
         """Create outline of tile hexagon"""
 
-        # check if a layer is selected in the viewer, get center of selected image
-        selection = list(self.viewer.layers.selection)
+        if self.outline_layer is None:
+            self.center = np.asarray(self.image_layer_select.value.data.shape) / 2
 
-        if isinstance(selection[0], napari.layers.Image):
-            self.selected_image_layer = selection[0].name
-
-        if self.selected_image_layer is not None:
-            self.center = np.asarray(self.viewer.layers[self.selected_image_layer].data.shape) / 2
         else:
-            self.center = (0, 0)
+            self.center = self.outline_layer.data[0][1:].mean(axis=0)
 
         self.hexagon = CirclePolygon(
             xy = (self.center[0], self.center[1]),
             radius=self.spinBox_hexagon_radius.value(),
             resolution=6)
-        
+
         # add outline layer or update data
         vertices = self.hexagon.get_verts()
         if self.outline_layer is None or self.outline_layer not in self.viewer.layers:
@@ -92,27 +103,23 @@ class BoardgameMakerWidget(QWidget):
         else:
             self.outline_layer.data = vertices
 
-        # select image layer
-        self.viewer.layers.selection = [self.viewer.layers[self.selected_image_layer]]
-
     def _create_number_field(self):
-        try:
-            center = self.outline_layer.data[0][1:].mean(axis=0)
-        except:
-            center = [0, 0]
+        """Create number field around center of tile"""
 
-        # self.number_field = CirclePolygon(
-        #     xy = (center[0], center[1]),
-        #     radius=self.spinBox_number_field_radius.value(),
-        #     resolution=64)
+
+        if self.number_field_layer is not None:
+            center = self.number_field_layer.data[0][1:].mean(axis=0)
+        else:
+            center = self.center
 
         # Add number valley by indending mask in a circle around a given center
         circle_number = Circle(radius=self.spinBox_number_field_radius.value(), xy=center)
         vertices_circle_number_field = circle_number.get_verts()
 
-        if self.number_field_layer not in self.viewer.layers or self.number_field_layer is None:
-            self.number_field_layer = self.viewer.add_shapes(vertices_circle_number_field, shape_type='polygon',
-                                                             name='Number field', opacity=0.4, edge_width=2, edge_color='orange')
+        if self.number_field_layer is None:
+            self.number_field_layer = self.viewer.add_shapes(
+                vertices_circle_number_field, shape_type='polygon',
+                name='Number field', opacity=0.4, edge_width=2, edge_color='orange')
         else:
             self.number_field_layer.data = vertices_circle_number_field
 
@@ -172,7 +179,7 @@ class BoardgameMakerWidget(QWidget):
         vertices_inner = self.hexagon.get_path().vertices * (radius - stride) + self.center[None,:]
 
         # convert inner and outer hexagon to mask
-        image = np.asarray(self.viewer.layers['image'].data)
+        image = self.image_layer_select.value.data
         tile_mask = polygon2mask(image.shape, vertices_outer) * 1
         tile_mask += polygon2mask(image.shape, vertices_inner) * 1
 
@@ -237,7 +244,7 @@ class BoardgameMakerWidget(QWidget):
 
         # Swap back
         surface_final = copy.deepcopy(surface_extrude)
-        surface_final[0][:, 0] = surface_extrude[0][:, 2]
+        surface_final[0][:, 0] = - surface_extrude[0][:, 2]
         surface_final[0][:, 2] = surface_extrude[0][:, 0]
 
         if self.surface_final_layer not in self.viewer.layers or self.surface_final_layer is None:
@@ -252,7 +259,7 @@ class BoardgameMakerWidget(QWidget):
             return
         
         # Get filename
-        filename = QFileDialog.getSaveFileName(self, 'Save file', '', 'PLY (*.ply)')[0]
+        filename = QFileDialog.getSaveFileName(self, 'Save file', '', 'STl (*.stl)')[0]
         if filename == '':
             return
         
