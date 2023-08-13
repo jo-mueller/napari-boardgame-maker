@@ -15,6 +15,13 @@ In short, images (for instance, [digital elevation models](https://en.wikipedia.
 | --- | --- |
 | <img src="./docs/imgs/sample.png"> | <img src="./docs/imgs/sample_as_tile.png"> |
 
+## Data
+
+In principle, all 2D grayscale image data can be used to create a tile. However, using digital elevation models is particularly cool. Such data is publicly available at [OpenTopography.org](https://portal.opentopography.org/raster?opentopoID=OTSDEM.032021.4326.2). Acknowledgement:
+
+```text
+ NASA JPL. NASADEM Merged DEM Global 1 arc second V001. 2020, distributed by NASA EOSDIS Land Processes DAAC, https://doi.org/10.5067/MEaSUREs/NASADEM/NASADEM_HGT.001.
+```
 ## Usage
 
 To use the boardgame tile maker, open it from the plugins menu (`Plugins > napari-boardgame-maker: Boardgame Tile Maker`) or from the tools menu (`Tools > Boardgame tile maker (npbgm)`). There are a few steps and parameters to set before the tile can be created.
