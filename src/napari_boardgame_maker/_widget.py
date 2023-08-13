@@ -25,8 +25,9 @@ from pathlib import Path
 import os
 import numpy as np
 import napari
+from napari_tools_menu import register_function
 
-
+@register_function(menu="Games > Boardgame tile maker (npbgm)")
 class BoardgameMakerWidget(QWidget):
     # your QWidget.__init__ can optionally request the napari viewer instance
     # in one of two ways:
@@ -84,6 +85,9 @@ class BoardgameMakerWidget(QWidget):
     def _create_outline(self):
         """Create outline of tile hexagon"""
 
+        if self.outline_layer not in self.viewer.layers:
+            self.outline_layer = None
+
         if self.outline_layer is None:
             self.center = np.asarray(self.image_layer_select.value.data.shape) / 2
 
@@ -106,6 +110,8 @@ class BoardgameMakerWidget(QWidget):
     def _create_number_field(self):
         """Create number field around center of tile"""
 
+        if self.number_field_layer not in self.viewer.layers:
+            self.number_field_layer = None
 
         if self.number_field_layer is not None:
             center = self.number_field_layer.data[0][1:].mean(axis=0)

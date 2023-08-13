@@ -7,7 +7,51 @@
 [![codecov](https://codecov.io/gh/jo-mueller/napari-boardgame-maker/branch/main/graph/badge.svg)](https://codecov.io/gh/jo-mueller/napari-boardgame-maker)
 [![napari hub](https://img.shields.io/endpoint?url=https://api.napari-hub.org/shields/napari-boardgame-maker)](https://napari-hub.org/plugins/napari-boardgame-maker)
 
-Make boardgame tiles
+This plugin turns 2D grayscale images into 3D-printable landscape tiles for a certain all-time tabletop boardgame which revolves around building settlements, obtaining ressources expanding and collecting more points than your opponents.
+
+In short, images (for instance, [digital elevation models](https://en.wikipedia.org/wiki/Digital_elevation_model)) can be turned into surfaces like this:
+
+| Image | Created tile|
+| --- | --- |
+| <img src="./docs/imgs/sample.png"> | <img src="./docs/imgs/sample_as_tile.png"> |
+
+## Usage
+
+To use the boardgame tile maker, open it from the plugins menu (`Plugins > napari-boardgame-maker: Boardgame Tile Maker`) or from the tools menu (`Tools > Boardgame tile maker (npbgm)`). There are a few steps and parameters to set before the tile can be created.
+
+[](./docs/imgs/GUI_screenshot.jpg)
+
+Clicking on `Make hexagon` and `Make number field` will create a hexagonal shape in the viewer (which will be the outline of the tile) and a circular field (which can later be used to put some markers, figures, chips, etc. On the center of the board).
+
+![](docs/imgs/sample_with_shapes.png)
+
+The next step is to set the parameters for the tile. The following parameters can be set:
+
+### Radii and sizes
+
+The following sketch shows the different radii and sizes that can be set:
+
+![](./docs/imgs/stride_and_town.png)
+
+- `hexagon radius`: The radius of the hexagon (in pixels). Upon export, this will be rescaled to a desired physical size in mm.
+- `number field radius`: The radius of the number field (in pixels). Can also be set in mm units. The pixels are changed accordingly if the size of the whole hexagon is changed.
+- `stride`: The region next to the edge of the tile that should remain flat.
+- `town radius`: A circular region around the edges of the hexagonal tiles that should remain flat.
+
+### Topography
+
+The following parameters can be set to create the topography of the tile:
+
+![](./docs/imgs/slope_and_heights.png)
+
+- `slope`: Adds a smooth transition of a given width between the edge of the cropped topography and the level of the base platte. Setting this to zero will result in a sharp edge.
+- `z-multiplier`: The height of the topography is multiplied by this factor. This can be used to scale the topography to the desired height.
+- `Plate thickness`: The thickness of the base plate (in mm).
+
+### Export
+
+- CLicking on `produce tile` will run the workflow to create the tile
+- Clicking `Export` will open a dialog to save the tile as an `.stl` file. *Note*: The tile will be exported in the size of the hexagon radius. If the hexagon radius is set to 100 mm, the tile will be exported as a 100 mm hexagon.
 
 ----------------------------------
 
@@ -26,8 +70,6 @@ https://napari.org/stable/plugins/index.html
 You can install `napari-boardgame-maker` via [pip]:
 
     pip install napari-boardgame-maker
-
-
 
 
 ## Contributing
