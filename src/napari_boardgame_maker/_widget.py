@@ -241,10 +241,10 @@ class BoardgameMakerWidget(QWidget):
 
         # Extrude
         vedo_mesh = vedo.Mesh((points, surface[1]))
-        n_vertices = vedo_mesh.N()
+        n_vertices = len(vedo_mesh.vertices)
 
         vedo_mesh_extruded = vedo_mesh.extrude(zshift=-10)
-        surface_extrude = (vedo_mesh_extruded.points(), np.asarray(vedo_mesh_extruded.faces()))
+        surface_extrude = (vedo_mesh_extruded.vertices, np.asarray(vedo_mesh_extruded.cells))
         deepest_point = surface_extrude[0].min(axis=0)[-1]
         surface_extrude[0][n_vertices:, 2] =  deepest_point
 
